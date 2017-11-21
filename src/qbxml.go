@@ -1,6 +1,8 @@
 package src
 
 import (
+	"encoding/xml"
+
 	"github.com/go-ole/go-ole"
 	load "github.com/mrmiguu/Loading"
 )
@@ -35,7 +37,11 @@ func qbXML() {
 
 	var XML struct {
 	}
-	disp.Call("ProcessRequest", tkt, XML)
+	x, err := xml.Marshal(XML)
+	must(err)
+	done <- false
+
+	disp.Call("ProcessRequest", tkt, string(x))
 	done <- false
 
 	_, err = disp.Call("EndSession", tkt)
