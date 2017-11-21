@@ -6,12 +6,13 @@ import (
 )
 
 func init() {
-	done := load.New("OttoAcct running")
+	qbXML()
+	compile()
+	run()
+}
 
-	// some parts can be properly automated
-	// while others require drap-n-drop functionality
-
-	sock.Root = "src/www"
+func run() {
+	done := load.New("Running OttoAcct")
 
 	for File := range sock.Rbytes() {
 		println(string(File))
